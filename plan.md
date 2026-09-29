@@ -54,14 +54,16 @@ Every selected dataset should record its source URL, licence, retrieval date, ge
 - Remove very small clusters using the minimum incident threshold (min_incidents=10-15).
 - Generate aggregated hotspot areas.
 - Implement a simple grid-based method as a baseline.
-- Compare the general hotspot patterns produced by both methods.
+- Compare HDBSCAN vs grid on: number of hotspots, % incidents in hotspots (coverage), and visual map overlap. No extra metrics.
 
 ## Phase 4: ML Prediction
+- Target (locked for small scope): weekly crime counts per area. No classification unless time permits.
 - Create features from historical crime data, such as previous crime counts, time period, crime category, and area/hotspot information.
 - One model only: Random Forest is the candidate model (counts) — train 2019-2022, test 2023-2024; confirm the final choice after EDA and feature analysis.
+- Baseline (no extra build): historical-average / persistence forecast on same split.
 - Use historical data for training and later time periods for testing.
-- Predict future hotspot activity or crime counts for defined areas and time periods.
-- Metrics: MAE/RMSE + Precision/Recall.
+- Predict future weekly counts for defined areas.
+- Metrics: MAE/RMSE only.
 - Clearly document limitations and avoid individual-level crime prediction claims.
 
 ## Phase 5: Build the Web Application
@@ -75,6 +77,11 @@ Every selected dataset should record its source URL, licence, retrieval date, ge
 
 ## Phase 6: Research Paper
 Research-paper title (Chicago case study): Density-Based vs Grid-Based Crime Hotspot Detection with Temporal Forecasting: A Reproducible Study on Chicago Open Crime Data (2019–2024).
+
+Research questions (locked, no scope expansion):
+- RQ1: How do HDBSCAN hotspots differ from grid-based hotspots for Chicago 2019-2024?
+- RQ2: Can historical counts forecast next-week counts per area?
+- RQ3: How did hotspots shift from 2019 to 2024?
 
 The research paper should focus on the research problem and findings rather than only the web application.
 
@@ -96,6 +103,18 @@ Keep the experiments manageable:
 - One ML prediction experiment
 - Basic evaluation and discussion
 
+Required figures/tables only (reuse analysis outputs, no extra work):
+- Fig1 temporal curve (monthly counts 2019-2024)
+- Fig2 crime-category bar chart
+- Fig3 HDBSCAN hotspot map
+- Fig4 grid-baseline hotspot map
+- Table1 ML results (baseline vs Random Forest, MAE/RMSE)
+- Table2/Fig5 feature importance (top features only)
+
+Reproducibility log (record once, reuse in paper):
+- Dataset URL, licence, retrieval date, row count, hash, preprocessing v0.1
+- Final projected CRS, HDBSCAN params, min_incidents value, random seed, library versions
+
 ## Phase 7: Verify and Present
 - Test the complete flow from dataset to dashboard.
 - Check that hotspot results can be reproduced from the same dataset and parameters.
@@ -115,9 +134,9 @@ Keep the experiments manageable:
 
 ## Timeline & Milestones (Sept-Dec, 2 builders)
 - Sept: Data-quality verification of Chicago 2019-24 candidate, Python cleaning + EDA. Dev1: pipeline, Dev2: train/test split.
-- Oct: Hotspot detection and spatial analysis. Dev1: HDBSCAN, Dev2: grid baseline + dashboard skeleton.
-- Nov: ML prediction and evaluation + dashboard integration. One model only.
-- Dec: Research paper, report, PPT, final polishing, demo practice, and submission.
+- Oct: Hotspot detection and spatial analysis. Dev1: HDBSCAN, Dev2: grid baseline + dashboard skeleton. Start paper Sections 3-4 draft (dataset + method).
+- Nov: ML prediction and evaluation + dashboard integration. One model only. Draft Results + Limitations in parallel.
+- Dec: Research paper polish, report, PPT, final polishing, demo practice, and submission. No new experiments in Dec.
 
 ## Risk Register
 - Data availability: selected dataset does not contain usable geographic information → Chicago slice is candidate only; verify lat/long and complete data-quality verification before locking.

@@ -35,8 +35,8 @@
 - HDBSCAN-based hotspot detection
 - Simple grid-based baseline comparison
 - One ML model for future hotspot prediction
-- Interactive map and simple dashboard
-- Research paper, project report, and PPT
+- Research paper, project report, and PPT (highest priority)
+- Interactive map and simple dashboard (secondary, minimal)
 
 ## Out of Scope
 - Multiple cities unless the selected dataset makes it easy
